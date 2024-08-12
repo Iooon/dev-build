@@ -5,6 +5,6 @@ dotfiles_dir: "{{ git_dir }}/dotfiles"
 nvim_dir: "{{ git_dir }}/nvim"
 
 # Config file overwrites
-overwrite_bash: true
-overwrite_tmux: true
-overwrite_nvim: true
+overwrite_bash: false
+overwrite_tmux: false
+overwrite_nvim: false

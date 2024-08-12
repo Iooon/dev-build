@@ -6,7 +6,7 @@ The build contains the following tasks:
 - Download [dotfiles](https://github.com/Iooon/dotfiles.git) from Github
 - Download neovim from Github, build neovim and install it
 - Install tmux with apt
-- Link tmux and neovim config files from dotfiles to system
+- Link bash, tmux and neovim config files from dotfiles to system
 
 ## Target systems
 
