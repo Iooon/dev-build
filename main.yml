@@ -1,0 +1,6 @@
+---
+- name: "Development Setup"
+  hosts: localhost
+  connection: local
+  roles:
+    - role: "roles/dev-setup"

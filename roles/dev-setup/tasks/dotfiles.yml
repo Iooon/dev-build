@@ -1,0 +1,6 @@
+---
+- name: "Get dotfiles from Github"
+  git:
+    repo: "https://github.com/Iooon/dotfiles.git"
+    dest: "{{ dotfiles_dir }}"
+    version: "master"

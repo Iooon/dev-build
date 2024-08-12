@@ -1,0 +1,56 @@
+---
+- name: "Get stable neovim from Github"
+  git:
+    repo: "https://github.com/neovim/neovim.git"
+    dest: "{{ nvim_dir }}"
+    version: "stable"
+
+- name: "Install packages for neovim compilation and dependencies"
+  package:
+    name:
+      - ninja-build
+      - gettext
+      - cmake
+      - unzip
+      - curl
+      - build-essential
+      - ripgrep # For telescope
+      - npm # For Mason pyright
+    state: latest
+  become: true
+  become_method: sudo
+
+
+- name: "Get neovim version"
+  command:
+    chdir: "{{ nvim_dir }}"
+    cmd: "git describe --tags --abbrev=0"
+  register: nvim_version
+
+- name: "Make neovim {{ nvim_version.stdout }}"
+  make:
+    chdir: "{{ nvim_dir }}"
+    params:
+      CMAKE_BUILD_TYPE: "RelWithDebInfo"
+  become: true
+  become_method: sudo
+
+- name: "Install neovim {{ nvim_version.stdout }}"
+  shell: |
+    cd {{ nvim_dir }}/build
+    cpack -G DEB
+    dpkg -i nvim-linux64.deb
+  become: true
+  become_method: sudo
+
+- name: "Create neovim config directory"
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config"
+    state: directory
+
+- name: "Link nvim config"
+  file:
+    src: "{{ dotfiles_dir }}/.config/nvim/"
+    dest: "{{ ansible_env.HOME }}/.config/nvim"
+    state: link
+    force: "{{ overwrite_nvim }}"

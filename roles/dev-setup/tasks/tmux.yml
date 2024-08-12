@@ -1,0 +1,16 @@
+---
+- name: "Install tmux"
+  apt:
+    name: tmux
+    state: present
+  become: true
+  become_method: sudo
+
+- name: "Link tmux config"
+  file:
+    src: "{{ dotfiles_dir }}/.tmux.conf"
+    dest: "{{ ansible_env.HOME }}/.tmux.conf"
+    state: link
+    force: "{{ overwrite_tmux }}"
+
+

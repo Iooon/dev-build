@@ -1,0 +1,7 @@
+---
+- name: "Link bash config"
+  file:
+    src: "{{ dotfiles_dir }}/.bashrc"
+    dest: "{{ ansible_env.HOME }}/.bashrc"
+    state: link
+    force: "{{ overwrite_bash }}"

@@ -1,0 +1,10 @@
+---
+# Directories repositories from Github
+git_dir: "{{ ansible_env.HOME }}/git"
+dotfiles_dir: "{{ git_dir }}/dotfiles"
+nvim_dir: "{{ git_dir }}/nvim"
+
+# Config file overwrites
+overwrite_bash: true
+overwrite_tmux: true
+overwrite_nvim: true
